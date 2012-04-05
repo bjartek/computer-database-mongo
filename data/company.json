@@ -1,0 +1,42 @@
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51366" }, "name" : "Apple Inc." }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51367" }, "name" : "Thinking Machines" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51368" }, "name" : "RCA" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51369" }, "name" : "Netronics" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5136a" }, "name" : "Tandy Corporation" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5136b" }, "name" : "Commodore International" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5136c" }, "name" : "MOS Technology" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5136d" }, "name" : "Micro Instrumentation and Telemetry Systems" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5136e" }, "name" : "IMS Associates", "field1" : "Inc." }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5136f" }, "name" : "Digital Equipment Corporation" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51370" }, "name" : "Lincoln Laboratory" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51371" }, "name" : "Moore School of Electrical Engineering" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51372" }, "name" : "IBM" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51373" }, "name" : "Amiga Corporation" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51374" }, "name" : "Canon" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51375" }, "name" : "Nokia" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51376" }, "name" : "Sony" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51377" }, "name" : "OQO" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51378" }, "name" : "NeXT" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51379" }, "name" : "Atari" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5137a" }, "name" : "Acorn computer" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5137b" }, "name" : "Timex Sinclair" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5137c" }, "name" : "Nintendo" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5137d" }, "name" : "Sinclair Research Ltd" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5137e" }, "name" : "Xerox" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5137f" }, "name" : "Hewlett-Packard" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51380" }, "name" : "Zemmix" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51381" }, "name" : "ACVS" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51382" }, "name" : "Sanyo" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51383" }, "name" : "Cray" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51384" }, "name" : "Evans & Sutherland" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51385" }, "name" : "E.S.R. Inc." }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51386" }, "name" : "OMRON" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51387" }, "name" : "BBN Technologies" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51388" }, "name" : "Lenovo Group" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f51389" }, "name" : "ASUS" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5138a" }, "name" : "Amstrad" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5138b" }, "name" : "Sun Microsystems" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5138c" }, "name" : "Texas Instruments" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5138d" }, "name" : "HTC Corporation" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5138e" }, "name" : "Research In Motion" }
+{ "_id" : { "$oid" : "4f7dc7c47f25471356f5138f" }, "name" : "Samsung Electronics" }

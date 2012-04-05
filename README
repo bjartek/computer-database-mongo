@@ -1,4 +1,15 @@
-This is your new Play 2.0 application
-=====================================
+This is a classic CRUD application, backed by MongoDB. It demonstrates:
 
-This file will be packaged with your application, when using `play dist`.
+- Accessing a MongoDB database using Casbah and Salat
+- Achieving, table pagination and CRUD forms.
+- Integrating with a CSS framework (Twitter Bootstrap ).
+
+
+This is basically a port of the sample application in Play-2 in order to demonstrate mongodb and salat
+
+In order to set up the mongodb database please run the following commands
+
+mongoimport -d computer-database -c companies --file data/companies.json
+mongoimport -d computer-database -c computers --file data/computers.json
+
+Due to a bug in mongoimport the 'old' computers with dates before 1970 are in a separate data file data/computers_old.json
