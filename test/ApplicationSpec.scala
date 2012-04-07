@@ -32,7 +32,7 @@ class ApplicationSpec extends Specification {
         val result = controllers.Application.list(0, 2, "")(FakeRequest())
 
         status(result) must equalTo(OK)
-        contentAsString(result) must contain("574 computers found")
+        contentAsString(result) must contain("552 computers found")
         
       }      
     }
@@ -56,16 +56,16 @@ class ApplicationSpec extends Specification {
         status(badResult) must equalTo(BAD_REQUEST)
         
         val badDateFormat = controllers.Application.save(
-          FakeRequest().withFormUrlEncodedBody("name" -> "FooBar", "introduced" -> "badbadbad", "company" -> "1")
+          FakeRequest().withFormUrlEncodedBody("name" -> "FooBar", "introduced" -> "badbadbad", "company" -> "4f7dc7c47f25471356f51366")
         )
         
         status(badDateFormat) must equalTo(BAD_REQUEST)
-        contentAsString(badDateFormat) must contain("""<option value="1" selected>Apple Inc.</option>""")
+        contentAsString(badDateFormat) must contain("""<option value="4f7dc7c47f25471356f51366" selected>Apple Inc.</option>""")
         contentAsString(badDateFormat) must contain("""<input type="text" id="introduced" name="introduced" value="badbadbad" >""")
         contentAsString(badDateFormat) must contain("""<input type="text" id="name" name="name" value="FooBar" >""")
         
         val result = controllers.Application.save(
-          FakeRequest().withFormUrlEncodedBody("name" -> "FooBar", "introduced" -> "2011-12-24", "company" -> "1")
+          FakeRequest().withFormUrlEncodedBody("name" -> "FooBar", "introduced" -> "2011-12-24", "company" -> "4f7dc7c47f25471356f51366")
         )
         
         status(result) must equalTo(SEE_OTHER)

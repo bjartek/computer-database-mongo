@@ -1,4 +1,4 @@
-@(id: Long, computerForm: Form[Computer])
+@(id: String, computerForm: Form[Computer])
 
 @import helper._
 
@@ -8,7 +8,7 @@
     
     <h1>Edit computer</h1>
     
-    @form(routes.Application.update(id)) {
+    @form(routes.Application.update(id.toString)) {
         
         <fieldset>
         
@@ -18,7 +18,7 @@
             
             @select(
                 computerForm("company"), 
-                Company.options, 
+                CompanyDAO.options, 
                 '_label -> "Company", '_default -> "-- Choose a company --",
                 '_showConstraints -> false
             )
