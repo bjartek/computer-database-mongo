@@ -4,8 +4,8 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
-import play.api.Play.current
 
+import play.api.Play.current
 import com.mongodb.casbah.Imports._
 
 import views._
@@ -16,6 +16,8 @@ import models._
  */
 object Application extends Controller { 
   
+
+
   /**
    * This result directly redirect to the application home.
    */
@@ -49,7 +51,6 @@ object Application extends Controller {
    * @param filter Filter applied on computer names
    */
   def list(page: Int, orderBy: Int, filter: String) = Action { implicit request =>
-    Logger.info(Play.configuration.getConfig("db").get.toString)
     Ok(html.list(
       ComputerDAO.list(page = page, orderBy = orderBy, filter = filter),
       orderBy, filter
@@ -76,7 +77,7 @@ object Application extends Controller {
     computerForm.bindFromRequest.fold(
       formWithErrors => BadRequest(html.editForm(id, formWithErrors)),
       computer => {
-        ComputerDAO.save(computer)
+        ComputerDAO.save(computer.copy(id = new ObjectId(id)))
         Home.flashing("success" -> "Computer %s has been updated".format(computer.name))
       }
     )

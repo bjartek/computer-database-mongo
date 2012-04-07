@@ -4,6 +4,8 @@ import play.api._
 
 import java.util.{Date}
 
+import play.api.Play.current
+
 import com.mongodb.casbah.Imports._
 
 import com.novus.salat._
@@ -22,7 +24,7 @@ case class Page[A](items: Seq[A], page: Int, offset: Long, total: Long) {
 
 
 case class Company(@Key("_id") id: ObjectId = new ObjectId, name: String)
-case class Computer(@Key("_id") id: ObjectId = new ObjectId, name: String, introduced: Option[Date], discontinued: Option[Date], @Key("company_id") companyId: Option[ObjectId]) 
+case class Computer(@Key("_id") id: ObjectId = new ObjectId, name: String, introduced: Option[Date] = None, discontinued: Option[Date] = None, @Key("company_id") companyId: Option[ObjectId] = None) 
 
 
 object Computer {
@@ -36,16 +38,21 @@ object Computer {
 
 }
 
-object CompanyDAO extends SalatDAO[Company, ObjectId](collection = MongoConnection()("computer-database")("companies"))  {
+object CompanyDAO extends SalatDAO[Company, ObjectId](collection = MongoConnection()
+  (Play.configuration.getString("mongo.url").getOrElse("computer-database"))("companies"))  {
 
-  
   def options: Seq[(String,String)] = {
     find(MongoDBObject.empty).map(it => (it.id.toString, it.name)).toSeq
+  }
+
+  def list: Map[String, String] = {
+    find(MongoDBObject.empty).map(it => it.name -> it.id.toString).toMap
   }
 }
 
 
-object ComputerDAO extends SalatDAO[Computer, ObjectId](collection = MongoConnection()("computer-database")("computers")) {
+object ComputerDAO extends SalatDAO[Computer, ObjectId](collection = MongoConnection()
+  (Play.configuration.getString("mongo.url").getOrElse("computer-database"))("computers")) {
 
   val columns = List("dummy", "_id", "name", "introduced", "discontinued", "company_id")
 
@@ -58,8 +65,6 @@ object ComputerDAO extends SalatDAO[Computer, ObjectId](collection = MongoConnec
     val totalRows = count(where);
     val offset = pageSize * page
     val computer = find(where).sort(order).limit(pageSize).skip(offset).toSeq
-
-    computer.foreach(it => Logger.info(it.toString))
 
     val computers = computer.map{ c => 
       val company = c.companyId.flatMap(id => CompanyDAO.findOneByID(id))
