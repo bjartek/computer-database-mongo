@@ -44,10 +44,6 @@ object CompanyDAO extends SalatDAO[Company, ObjectId](collection = MongoConnecti
   def options: Seq[(String,String)] = {
     find(MongoDBObject.empty).map(it => (it.id.toString, it.name)).toSeq
   }
-
-  def list: Map[String, String] = {
-    find(MongoDBObject.empty).map(it => it.name -> it.id.toString).toMap
-  }
 }
 
 
