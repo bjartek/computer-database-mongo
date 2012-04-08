@@ -82,7 +82,7 @@ class IntegrationSpec extends Specification {
         browser.$("#searchbox").text("Commodore")
         browser.$("#searchsubmit").click()
 
-        browser.$("section h1").first.getText must equalTo("1 computers found")
+        browser.$("section h1").first.getText must equalTo("One computer found")
       }
     }
   }
