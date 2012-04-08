@@ -13,6 +13,7 @@ import com.novus.salat.global._
 import com.novus.salat.dao._
 import com.novus.salat.annotations._
 
+import models.salatctx._
 
 /**
  * Helper for pagination.
