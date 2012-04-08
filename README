@@ -5,7 +5,7 @@ This is a classic CRUD application, backed by MongoDB. It demonstrates:
 - Integrating with a CSS framework (Twitter Bootstrap ).
 
 
-This is basically a port of the sample application in Play-2 in order to demonstrate mongodb and salat
+This is basically a port of the sample application in Play-2 in order to demonstrate mongodb and salat. I have made as little changes in controller/view layer as possible.
 
 When the application is first started test data is sourced into the mongo database specified in the 'mongo.url' configuration. 
 
