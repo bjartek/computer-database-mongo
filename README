@@ -7,9 +7,5 @@ This is a classic CRUD application, backed by MongoDB. It demonstrates:
 
 This is basically a port of the sample application in Play-2 in order to demonstrate mongodb and salat
 
-In order to set up the mongodb database please run the following commands
+When the application is first started test data is sourced into the mongo database specified in the 'mongo.url' configuration. 
 
-mongoimport -d computer-database -c companies --file data/companies.json
-mongoimport -d computer-database -c computers --file data/computers.json
-
-Due to a bug in mongoimport the 'old' computers with dates before 1970 are in a separate data file data/computers_old.json
