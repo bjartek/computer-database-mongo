@@ -6,14 +6,13 @@ import java.util.{Date}
 
 import play.api.Play.current
 
-import com.mongodb.casbah.Imports._
 
 import com.novus.salat._
 import com.novus.salat.global._
 import com.novus.salat.dao._
 import com.novus.salat.annotations._
-
-import models.salatctx._
+import com.mongodb.casbah.Imports._
+import models.SalatImports._
 
 /**
  * Helper for pagination.
@@ -39,8 +38,7 @@ object Computer {
 
 }
 
-object CompanyDAO extends SalatDAO[Company, ObjectId](collection = MongoConnection()
-  (Play.configuration.getString("mongo.url").getOrElse("computer-database"))("companies"))  {
+object CompanyDAO extends SalatDAO[Company, ObjectId](collection = mongoCollection("companies")) {
 
   def options: Seq[(String,String)] = {
     find(MongoDBObject.empty).map(it => (it.id.toString, it.name)).toSeq
@@ -48,8 +46,7 @@ object CompanyDAO extends SalatDAO[Company, ObjectId](collection = MongoConnecti
 }
 
 
-object ComputerDAO extends SalatDAO[Computer, ObjectId](collection = MongoConnection()
-  (Play.configuration.getString("mongo.url").getOrElse("computer-database"))("computers")) {
+object ComputerDAO extends SalatDAO[Computer, ObjectId](collection = mongoCollection("computers")) {
 
   val columns = List("dummy", "_id", "name", "introduced", "discontinued", "company_id")
 
