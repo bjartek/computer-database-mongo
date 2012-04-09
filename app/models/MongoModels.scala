@@ -29,7 +29,7 @@ case class Computer(@Key("_id") id: ObjectId = new ObjectId, name: String, intro
 
 object Computer {
   def fromForm(id:ObjectId, name:String, introduced:Option[Date], discontinued:Option[Date], company: Option[String]) :Computer ={
-    Computer(id, name, introduced, discontinued, company.map(c => new ObjectId(c))) 
+    Computer(new ObjectId(), name, introduced, discontinued, company.map(c => new ObjectId(c))) 
   }
 
   def toForm(computer: Computer) = {
