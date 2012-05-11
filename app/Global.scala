@@ -6,7 +6,7 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application) {
 
-    val size = CompanyDAO.count(MongoDBObject.empty)
+    val size = Company.count(MongoDBObject.empty)
     if(size == 0) {
       insertTestData() 
     }
@@ -23,7 +23,7 @@ object Global extends GlobalSettings {
     val companies = play.Play.application().getFile("data/companies.csv");
     val lines = scala.io.Source.fromFile(companies).getLines
     val savedCompanies = lines.map{line => 
-      val id = CompanyDAO.insert(Company(name = line))
+      val id = Company.insert(Company(name = line))
       line -> id
     }
 
@@ -44,7 +44,7 @@ object Global extends GlobalSettings {
         companyId =    if(elements(3) == "null") None else company(elements(3))
       )
 
-      ComputerDAO.insert(computer)
+      Computer.insert(computer)
     }
   }
 

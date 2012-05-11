@@ -10,7 +10,7 @@ class ApplicationSpec extends Specification {
   import com.mongodb.casbah.Imports._
 
   def mongoTestDatabase() = {
-    Map("mongo.url" -> "computer-database-test")
+    Map("mongo.default.db" -> "computer-database-test")
   }
 
   val macintoshId = new ObjectId("4f7e12bf7f25471356f51e39")
@@ -22,17 +22,17 @@ class ApplicationSpec extends Specification {
 
   step {
       running(FakeApplication(additionalConfiguration = mongoTestDatabase())) {
-        ComputerDAO.remove(MongoDBObject.empty)
-        CompanyDAO.remove(MongoDBObject.empty)
+        Computer.remove(MongoDBObject.empty)
+        Company.remove(MongoDBObject.empty)
 
         val apple = Company(appleCompanyId, "Apple Inc.")
-        CompanyDAO.insert(apple)
+        Company.insert(apple)
 
         val mac = Computer(macintoshId, "Macintosh", Some(dateFromString("1984-01-24")), None, Some(appleCompanyId))
-        ComputerDAO.insert(mac)
-        ComputerDAO.insert(Computer(name = "LISA", companyId = Some(appleCompanyId)))
-        ComputerDAO.insert(Computer(name = "Commodore 64"))
-        ComputerDAO.insert(Computer(name = "Commodore 128"))
+        Computer.insert(mac)
+        Computer.insert(Computer(name = "LISA", companyId = Some(appleCompanyId)))
+        Computer.insert(Computer(name = "Commodore 64"))
+        Computer.insert(Computer(name = "Commodore 128"))
       }
   }
 

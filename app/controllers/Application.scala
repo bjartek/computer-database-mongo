@@ -7,6 +7,8 @@ import play.api.data.Forms._
 
 import play.api.Play.current
 import com.mongodb.casbah.Imports._
+import se.radley.plugin.salat._
+import com.novus.salat._
 
 import views._
 import models._
@@ -52,7 +54,7 @@ object Application extends Controller {
    */
   def list(page: Int, orderBy: Int, filter: String) = Action { implicit request =>
     Ok(html.list(
-      ComputerDAO.list(page = page, orderBy = orderBy, filter = filter),
+      Computer.list(page = page, orderBy = orderBy, filter = filter),
       orderBy, filter
     ))
   }
@@ -63,8 +65,8 @@ object Application extends Controller {
    * @param id Id of the computer to edit
    */
   def edit(id: String) = Action { 
-    ComputerDAO.findOneByID(new ObjectId(id)).map { computer =>
-      Ok(html.editForm(id, computerForm.fill(computer), CompanyDAO.options))
+    Computer.findOneByID(new ObjectId(id)).map { computer =>
+      Ok(html.editForm(id, computerForm.fill(computer), Company.options))
     }.getOrElse(NotFound)
   }
   
@@ -75,9 +77,9 @@ object Application extends Controller {
    */
   def update(id: String) = Action { implicit request =>
     computerForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(html.editForm(id, formWithErrors, CompanyDAO.options)),
+      formWithErrors => BadRequest(html.editForm(id, formWithErrors, Company.options)),
       computer => {
-        ComputerDAO.save(computer.copy(id = new ObjectId(id)))
+        Computer.save(computer.copy(id = new ObjectId(id)))
         Home.flashing("success" -> "Computer %s has been updated".format(computer.name))
       }
     )
@@ -87,7 +89,7 @@ object Application extends Controller {
    * Display the 'new computer form'.
    */
   def create = Action {
-    Ok(html.createForm(computerForm, CompanyDAO.options))
+    Ok(html.createForm(computerForm, Company.options))
   }
   
   /**
@@ -95,9 +97,9 @@ object Application extends Controller {
    */
   def save = Action { implicit request =>
     computerForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(html.createForm(formWithErrors, CompanyDAO.options)),
+      formWithErrors => BadRequest(html.createForm(formWithErrors, Company.options)),
       computer => {
-        ComputerDAO.insert(computer)
+        Computer.insert(computer)
         Home.flashing("success" -> "Computer %s has been created".format(computer.name))
       }
     )
@@ -107,7 +109,7 @@ object Application extends Controller {
    * Handle computer deletion.
    */
   def delete(id: String) = Action { 
-    ComputerDAO.remove(MongoDBObject("_id" -> new ObjectId(id)))
+    Computer.remove(MongoDBObject("_id" -> new ObjectId(id)))
     Home.flashing("success" -> "Computer has been deleted")
   }
 
