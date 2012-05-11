@@ -5,11 +5,13 @@ import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
 
+import org.bson.types.ObjectId
+
 import play.api.Play.current
-import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
 import com.novus.salat._
 
+import com.mongodb.casbah.Imports._
 import views._
 import models._
 
@@ -17,8 +19,22 @@ import models._
  * Manage a database of computers
  */
 object Application extends Controller { 
-  
 
+ /*
+  * This is here for now, should be moved to the salat plugin
+  */
+  import play.api.data.format._
+  import play.api.data.format.Formats._
+  implicit val objectIdFormat = new Formatter[ObjectId] {
+   def bind(key: String, data: Map[String, String]) = {
+     stringFormat.bind(key, data).right.flatMap { value =>
+           scala.util.control.Exception.allCatch[ObjectId]
+            .either(new ObjectId(value))
+           .left.map(e => Seq(FormError(key, "error.objectId", Nil))) }
+   }
+ 
+   def unbind(key: String, value: ObjectId) = Map(key -> value.toString)
+  }
 
   /**
    * This result directly redirect to the application home.
@@ -34,8 +50,8 @@ object Application extends Controller {
       "name" -> nonEmptyText,
       "introduced" -> optional(date("yyyy-MM-dd")),
       "discontinued" -> optional(date("yyyy-MM-dd")),
-      "company" -> optional(text)
-    )(Computer.fromForm)(Computer.toForm)
+      "company" -> optional(of[ObjectId])
+    )(Computer.apply)(Computer.unapply)
   )
   
   // -- Actions
@@ -64,8 +80,8 @@ object Application extends Controller {
    *
    * @param id Id of the computer to edit
    */
-  def edit(id: String) = Action { 
-    Computer.findOneByID(new ObjectId(id)).map { computer =>
+  def edit(id: ObjectId) = Action { 
+    Computer.findOneByID(id).map { computer =>
       Ok(html.editForm(id, computerForm.fill(computer), Company.options))
     }.getOrElse(NotFound)
   }
@@ -75,11 +91,11 @@ object Application extends Controller {
    *
    * @param id Id of the computer to edit
    */
-  def update(id: String) = Action { implicit request =>
+  def update(id: ObjectId) = Action { implicit request =>
     computerForm.bindFromRequest.fold(
       formWithErrors => BadRequest(html.editForm(id, formWithErrors, Company.options)),
       computer => {
-        Computer.save(computer.copy(id = new ObjectId(id)))
+        Computer.save(computer.copy(id = id))
         Home.flashing("success" -> "Computer %s has been updated".format(computer.name))
       }
     )
@@ -108,8 +124,8 @@ object Application extends Controller {
   /**
    * Handle computer deletion.
    */
-  def delete(id: String) = Action { 
-    Computer.remove(MongoDBObject("_id" -> new ObjectId(id)))
+  def delete(id: ObjectId) = Action { 
+    Computer.remove(MongoDBObject("_id" -> id))
     Home.flashing("success" -> "Computer has been deleted")
   }
 

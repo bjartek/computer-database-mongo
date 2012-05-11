@@ -1,4 +1,4 @@
-@(id: String, computerForm: Form[Computer], companies: Seq[(String, String)])
+@(id: ObjectId, computerForm: Form[Computer], companies: Seq[(String, String)])
 
 @import helper._
 
@@ -8,7 +8,7 @@
     
     <h1>Edit computer</h1>
     
-    @form(routes.Application.update(id.toString)) {
+    @form(routes.Application.update(id)) {
         
         <fieldset>
         

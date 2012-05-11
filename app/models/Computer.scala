@@ -37,15 +37,6 @@ object Computer extends ModelCompanion[Computer, ObjectId] {
     }
     Page(computers, page, offset, totalRows)
   }
-
-  def fromForm(id:ObjectId, name:String, introduced:Option[Date], discontinued:Option[Date], company: Option[String]) :Computer ={
-    Computer(new ObjectId(), name, introduced, discontinued, company.map(c => new ObjectId(c))) 
-  }
-
-  def toForm(computer: Computer) = {
-    Some((computer.id, computer.name, computer.introduced, computer.discontinued, computer.companyId.map(c => c.toString)))
-  }
-
 }
 
 /**
