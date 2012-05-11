@@ -64,7 +64,7 @@ object Application extends Controller {
    */
   def edit(id: String) = Action { 
     ComputerDAO.findOneByID(new ObjectId(id)).map { computer =>
-      Ok(html.editForm(id, computerForm.fill(computer)))
+      Ok(html.editForm(id, computerForm.fill(computer), CompanyDAO.options))
     }.getOrElse(NotFound)
   }
   
@@ -75,7 +75,7 @@ object Application extends Controller {
    */
   def update(id: String) = Action { implicit request =>
     computerForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(html.editForm(id, formWithErrors)),
+      formWithErrors => BadRequest(html.editForm(id, formWithErrors, CompanyDAO.options)),
       computer => {
         ComputerDAO.save(computer.copy(id = new ObjectId(id)))
         Home.flashing("success" -> "Computer %s has been updated".format(computer.name))
@@ -87,7 +87,7 @@ object Application extends Controller {
    * Display the 'new computer form'.
    */
   def create = Action {
-    Ok(html.createForm(computerForm))
+    Ok(html.createForm(computerForm, CompanyDAO.options))
   }
   
   /**
@@ -95,7 +95,7 @@ object Application extends Controller {
    */
   def save = Action { implicit request =>
     computerForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(html.createForm(formWithErrors)),
+      formWithErrors => BadRequest(html.createForm(formWithErrors, CompanyDAO.options)),
       computer => {
         ComputerDAO.insert(computer)
         Home.flashing("success" -> "Computer %s has been created".format(computer.name))
