@@ -9,6 +9,7 @@ import org.bson.types.ObjectId
 
 import play.api.Play.current
 import se.radley.plugin.salat._
+import se.radley.plugin.salat.Formats._
 import com.novus.salat._
 
 import com.mongodb.casbah.Imports._
@@ -19,22 +20,6 @@ import models._
  * Manage a database of computers
  */
 object Application extends Controller { 
-
- /*
-  * This is here for now, should be moved to the salat plugin
-  */
-  import play.api.data.format._
-  import play.api.data.format.Formats._
-  implicit val objectIdFormat = new Formatter[ObjectId] {
-   def bind(key: String, data: Map[String, String]) = {
-     stringFormat.bind(key, data).right.flatMap { value =>
-           scala.util.control.Exception.allCatch[ObjectId]
-            .either(new ObjectId(value))
-           .left.map(e => Seq(FormError(key, "error.objectId", Nil))) }
-   }
- 
-   def unbind(key: String, value: ObjectId) = Map(key -> value.toString)
-  }
 
   /**
    * This result directly redirect to the application home.
