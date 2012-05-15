@@ -64,7 +64,17 @@
                                 @computer.discontinued.map(_.format("dd MMM yyyy")).getOrElse { <em>-</em> }
                             </td>
                             <td>
-                                @company.map(_.name).getOrElse { <em>-</em> }
+                              @company match {
+
+                                case Some(c) => {
+                                  @c.name
+                                }
+
+                                case None => {
+                                  <em>-</em>
+                                }
+
+                              }
                             </td>
                         </tr>
                     }
