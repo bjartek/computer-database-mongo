@@ -66,7 +66,7 @@ object Application extends Controller {
    * @param id Id of the computer to edit
    */
   def edit(id: ObjectId) = Action { 
-    Computer.findOneByID(id).map { computer =>
+    Computer.findOneById(id).map { computer =>
       Ok(html.editForm(id, computerForm.fill(computer), Company.options))
     }.getOrElse(NotFound)
   }
