@@ -4,11 +4,13 @@ import java.util.{Date}
 import play.api.Play.current
 import com.novus.salat._
 import com.novus.salat.dao._
+import com.novus.salat.annotations._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
+import models.mongoContext._
 
 case class Computer(
-  id: ObjectId = new ObjectId, 
+  @Key("_id") id: ObjectId = new ObjectId, 
   name: String, 
   introduced: Option[Date] = None,
   discontinued: Option[Date] = None, 
@@ -32,7 +34,7 @@ object Computer extends ModelCompanion[Computer, ObjectId] {
     val computer = find(where).sort(order).limit(pageSize).skip(offset).toSeq
 
     val computers = computer.map{ c => 
-      val company = c.companyId.flatMap(id => Company.findOneByID(id))
+      val company = c.companyId.flatMap(id => Company.findOneById(id))
       (c, company)
     }
     Page(computers, page, offset, totalRows)
