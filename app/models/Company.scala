@@ -4,10 +4,12 @@ import play.api.Play.current
 import com.novus.salat._
 import com.novus.salat.dao._
 import com.mongodb.casbah.Imports._
+import com.novus.salat.annotations._
 import se.radley.plugin.salat._
+import models.mongoContext._
 
 case class Company(
-  id: ObjectId = new ObjectId, 
+  @Key("_id") id: ObjectId = new ObjectId, 
   name:String
 )
 
