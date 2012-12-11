@@ -7,7 +7,7 @@ import com.novus.salat.dao._
 import com.novus.salat.annotations._
 import com.mongodb.casbah.Imports._
 import se.radley.plugin.salat._
-import models.mongoContext._
+import com.novus.salat.global._
 
 case class Computer(
   @Key("_id") id: ObjectId = new ObjectId, 
