@@ -29,9 +29,9 @@ object Application extends Controller {
   /**
    * Describe the computer form (used in both edit and create screens).
    */ 
-  val computerForm = Form(
+  def computerForm(id: ObjectId = new ObjectId) = Form(
     mapping(
-      "id" -> ignored(new ObjectId()),
+      "id" -> ignored(id),
       "name" -> nonEmptyText,
       "introduced" -> optional(date("yyyy-MM-dd")),
       "discontinued" -> optional(date("yyyy-MM-dd")),
@@ -67,7 +67,7 @@ object Application extends Controller {
    */
   def edit(id: ObjectId) = Action { 
     Computer.findOneById(id).map { computer =>
-      Ok(html.editForm(id, computerForm.fill(computer), Company.options))
+      Ok(html.editForm(id, computerForm(id).fill(computer), Company.options))
     }.getOrElse(NotFound)
   }
   
@@ -77,7 +77,7 @@ object Application extends Controller {
    * @param id Id of the computer to edit
    */
   def update(id: ObjectId) = Action { implicit request =>
-    computerForm.bindFromRequest.fold(
+    computerForm(id).bindFromRequest.fold(
       formWithErrors => BadRequest(html.editForm(id, formWithErrors, Company.options)),
       computer => {
         Computer.save(computer.copy(id = id))
@@ -90,14 +90,14 @@ object Application extends Controller {
    * Display the 'new computer form'.
    */
   def create = Action {
-    Ok(html.createForm(computerForm, Company.options))
+    Ok(html.createForm(computerForm(), Company.options))
   }
   
   /**
    * Handle the 'new computer form' submission.
    */
   def save = Action { implicit request =>
-    computerForm.bindFromRequest.fold(
+    computerForm().bindFromRequest.fold(
       formWithErrors => BadRequest(html.createForm(formWithErrors, Company.options)),
       computer => {
         Computer.insert(computer)
